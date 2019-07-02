@@ -1,0 +1,329 @@
+/*
+ Xinyi He (cs8aware) and Yiwen Li (cs8awals)
+ */
+
+/*--------PROGRAM DESCRIPTION----------
+*This program focuses on flipping a given picture's color and showing different visual results.
+*It uses the method flipHorizontal to flip a picture horizontally.
+*It uses the method flipVertical to flip a picture horizontally (upside down).
+*It uses the method grayscale to convert the colorful picture to a gray picture.
+*It uses the method collage to combine a serises of pictures to one picture.
+*It uses the method flipVerticalRectangle to flip a rectangle in the vertical orientation.
+*It uses the method flipHorizontalRectangle to flip a rectangle in the horizontal orientation.
+*ExtraCredit:It uses the method scramble to divide images into a 3x3 grid, and randomly scramble the order of each sector of the grid.   
+ */
+
+
+
+import java.awt.*;
+import java.awt.font.*;
+import java.awt.geom.*;
+import java.awt.image.BufferedImage;
+import java.text.*;
+import java.util.*;
+import java.util.List; // resolves problem with java.awt.List and java.util.List
+import java.util.Random;
+
+/**
+ * A class that represents a picture.  This class inherits from 
+ * SimplePicture and allows the student to add functionality to
+ * the Picture class.  
+ * 
+ * Copyright Georgia Institute of Technology 2004-2005
+ * @author Barbara Ericson ericson@cc.gatech.edu
+ */
+public class Picture extends SimplePicture 
+{
+  ///////////////////// constructors //////////////////////////////////
+  
+  /**
+   * Constructor that takes no arguments 
+   */
+  public Picture ()
+  {
+    /* not needed but use it to show students the implicit call to super()
+     * child constructors always call a parent constructor 
+     */
+    super();  
+  }
+  
+  /**
+   * Constructor that takes a file name and creates the picture 
+   * @param fileName the name of the file to create the picture from
+   */
+  public Picture(String fileName)
+  {
+    // let the parent class handle this fileName
+    super(fileName);
+  }
+  
+  /**
+   * Constructor that takes the width and height
+   * @param width the width of the desired picture
+   * @param height the height of the desired picture
+   */
+  public Picture(int width, int height)
+  {
+    // let the parent class handle this width and height
+    super(width,height);
+  }
+  
+  /**
+   * Constructor that takes a picture and creates a 
+   * copy of that picture
+   */
+  public Picture(Picture copyPicture)
+  {
+    // let the parent class do the copy
+    super(copyPicture);
+  }
+  
+  /**
+   * Constructor that takes a buffered image
+   * @param image the buffered image to use
+   */
+  public Picture(BufferedImage image)
+  {
+    super(image);
+  }
+  
+  ////////////////////// methods ///////////////////////////////////////
+  
+  /**
+   * Method to return a string with information about this picture.
+   * @return a string with information about the picture such as fileName,
+   * height and width.
+   **/
+  public String toString()
+  {
+    String output = "Picture, filename " + getFileName() + 
+      " height " + getHeight() 
+      + " width " + getWidth();
+    return output;
+    
+  }
+  
+  //Part A
+  /**
+   * Horizontal flip method
+   * Input: nothing
+   * Returns: nothing
+   * This method flips the picture in the horizontal direction (mirrored right to left)
+   */
+  public void flipHorizontal()
+  {
+    Color tempColor;
+   
+    // the limit1 is the midpoint of width
+    int limit2 = this.getHeight();
+    int limit1 = this.getWidth()/2;
+    int width = this.getWidth();
+    
+    for(int i = 0; i < limit1; i++)
+    {
+      for(int j = 0; j < limit2; j++)
+      {
+        // exchange the rightPixel and the leftPixel color
+        Pixel leftPixel = this.getPixel(i,j);
+        Pixel rightPixel = this.getPixel(width-i-1,j);
+        tempColor = leftPixel.getColor();
+        leftPixel.setColor(rightPixel.getColor());
+        rightPixel.setColor(tempColor);
+      }
+    } 
+  }
+  
+  
+
+  /**
+   * Vertical flip method
+   * Input: nothing
+   * Returns: nothing
+   * This method flips the picture in the vertical direction (upside down)
+   **/
+  public void flipVertical()
+  {
+    Color tempColor;
+  
+    int limit1 = this.getWidth();
+    //limit2 is the midpoint of height
+    int limit2 = this.getHeight()/2;
+    int height = this.getHeight();
+    
+    for(int i = 0; i < limit1; i++)
+    {
+      for(int j = 0; j < limit2; j++)
+      {
+        // exchange the upPixel and the downPixel color
+        Pixel upPixel = this.getPixel(i,j);
+        Pixel downPixel = this.getPixel(i,height-j-1);
+        tempColor = upPixel.getColor();
+        upPixel.setColor(downPixel.getColor());
+        downPixel.setColor(tempColor);
+      }
+    }
+  }
+  
+  
+  /**
+   * Grayscale method
+   * Input: nothing
+   * Returns: nothing
+   * This method converts the picture to a gray picture.
+   **/
+  public void grayscale()
+  {
+    int width = this.getWidth();
+    int height = this.getHeight();
+    
+    for(int i = 0; i < width; i++)
+    {
+      for(int j = 0; j < height; j++)
+      {
+        //set every pixel gray 
+        Pixel pixel = this.getPixel(i,j);
+        int gray = (pixel.getRed() + pixel.getGreen() +pixel.getBlue())/3;
+        pixel.setColor(new Color(gray,gray,gray));
+      }
+    }
+  }
+  
+  
+    
+  /**The collage method
+    * This method will create the collage of your modified pictures,combine input pictures to one picture.
+    * Input: a picture array
+    * Returns: nothing
+    **/
+  public void collage(Picture[] pictures)
+  {
+    int width=pictures[0].getWidth();
+    int height=pictures[0].getHeight();
+    int tX = 0; 
+    
+    for(int i = 0; i < pictures.length; i++)
+    {
+      for(int x = 0; x < width; x++, tX++)
+      {
+        for(int y = 0; y < height; y++)
+        {
+          //the pixel(targetX,y) on the canvas get the color of pixel(x,y) of picture[i]
+          this.getPixel(tX,y).setColor(pictures[i].getPixel(x,y).getColor());
+        }
+      }  
+    }
+  }
+  
+  
+  //Part B
+  /* The flipVerticalRectangle method
+   * This method will flip a rectangle of dimensions length by width and height in the vertical orientation.  
+   * The position of this rectangle is defined by x and y, where (x, y) denotes the coordinates of the bottom left corner of the rectangle. 
+   * Input: the position x, y and width, height
+   * Returns: nothing
+   */
+  public void flipVerticalRectangle(int x,int y,int width,int height)
+  {
+    Color tempColor;
+   
+    int limit1 = x+width;
+    int limit2 = y-height/2+1;
+    
+    // i is from the left corner to the right corner
+    for(int i = x; i < limit1; i++)  
+    {
+      // j is from the top to the mid 
+      for(int j = y-height+1; j < limit2; j++)
+      {
+        //j1= y-[j-(y-height+1)]= 2*y-height-j+1; exchange the upPixel and the downPixel color
+        int j1 = 2*y-height-j+1;
+        Pixel upPixel = this.getPixel(i,j);
+        Pixel downPixel = this.getPixel(i,j1);
+        tempColor = upPixel.getColor();
+        upPixel.setColor(downPixel.getColor());
+        downPixel.setColor(tempColor);      
+      }
+    }
+  }
+  
+  
+  /* The flipHorizontalRectangle method
+   * This method will flip a rectangle of dimensions length by width and height in the horizontal orientation.  
+   * The position of this rectangle is defined by x and y, where (x, y) denotes the coordinates of the bottom left corner of the rectangle. 
+   * Input: the position x, y and width, height
+   * Returns: nothing
+   */
+  public void flipHorizontalRectangle(int x,int y,int width,int height)
+  {
+    Color tempColor;
+
+    int limit1 = x+width/2;
+    int limit2 = y-height/2+1;
+    
+    for(int i = x; i < limit1; i++)
+    {
+      for(int j = y-height+1; j <=y; j++)
+      {
+        // i1= x+width-1-(i-x)= 2*x+width-i-1; exchange the leftPixel and the rightPixel color
+        int i1 = 2*x+width-i-1; 
+        Pixel leftPixel = this.getPixel(i,j);
+        Pixel rightPixel = this.getPixel(i1,j);
+        tempColor = leftPixel.getColor();
+        leftPixel.setColor(rightPixel.getColor());
+        rightPixel.setColor(tempColor);
+      }
+    }
+  }
+  
+  
+  
+  //Extra Credit
+  /* The scramble method
+   * This method divides these images into a 3x3 grid, and randomly scramble the order of each sector of the grid.    
+   * Input: the original picture
+   * Returns: nothing
+   */
+  
+  public void scramble(Picture originalPicture)
+  {
+    //randomly generate 9 different numbers (0~8)
+    int[] A = new int[10];
+    Random generator=new Random();
+    for (int i = 0;i < 9;i++){A[i] = i;}
+    for (int m = 8;m >= 0;m--)
+    { 
+      int n=generator.nextInt(9);
+      A[9] = A[m];
+      A[m] = A[n];
+      A[n] = A[9];
+    }  
+    
+    
+    int height=this.getHeight()/3;
+    int width=this.getWidth()/3;
+   
+    for (int index = 0;index < 9;index++)
+    {
+      //calculate the quotients and remainders of index
+      int r1 = index%3;
+      int q1 = index/3;
+      
+      //calculate the quotients and remainders of A[index] (the array which stores the randomly generated  8 numbers)
+      int r2 = A[index]%3;
+      int q2 = A[index]/3; 
+    
+      for(int x = r1*width, targetX = r2*width; x < (r1+1)*width; x++)
+      {
+        for(int y = q1*width, targetY = q2*width;y < (q1+1)*height; y++)
+        {
+          Color color = (originalPicture.getPixel(x,y)).getColor();
+          this.getPixel(targetX,targetY).setColor(color);
+          targetY++;
+        }
+        targetX++;
+      }
+    }
+  }
+  
+} // this } is the end of class Picture, put all new methods before this
+ 

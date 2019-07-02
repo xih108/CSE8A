@@ -1,0 +1,50 @@
+/* Filename: PSA7PictureTester.java 
+* Created by: Xinyi He (cs8aware) and Junyi Guo (cs8awakw)
+* Date: Feb 22
+*/ 
+import java.util.Scanner;  // Do not remove this line
+
+public class PSA7PictureTester
+{
+  /* This program prompts the user to select a picture and create a Picture.  
+   * And prompts the user to enter an (x, y) coordinate and a size.
+   * It uses method flipHorizontalSquare which takes x, y,size as parameters
+   * to flip a square in the horizontal orientation within the boundary. */
+  public static void main( String[] args )
+  {
+
+    Picture pic = new Picture( FileChooser.pickAFile() );
+    pic.show();
+
+    int x, y, size;
+    int width = pic.getWidth();
+    int height = pic.getHeight();
+
+    System.out.println( "Picture loaded with width=" + width +
+                       " and height=" + height );
+
+    Scanner reader = new Scanner( System.in );
+
+    //Here's an example of reading integer input from the user.
+    System.out.print("Please enter the x, "
+                       +"y coordinates of lower left corner ");
+    System.out.println( "of the box to flip horizontally, x first:" );
+    x = reader.nextInt();
+    y = reader.nextInt();
+    System.out.println( "Enter the size of the box to flip:" );
+    size = reader.nextInt();
+
+    System.out.println( "You entered x=" + x + " y=" + y + " size=" + size );
+    
+    //call the method flipHorizontalSquare and display the result 
+    Picture p = pic.flipHorizontalSquare(x,y,size);
+    p.explore();
+  }
+}
+
+
+
+
+
+
+

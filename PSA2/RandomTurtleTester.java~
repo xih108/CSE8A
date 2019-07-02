@@ -1,0 +1,27 @@
+/* Filename: RandomTurtleTester.java 
+* Created by: Shuaiqi Xia, cs8a1 and Tony Xia, cs8a2
+* Date: 
+*/ 
+public class RandomTurtleTester {
+    //The line below is magic, you don't have to understand it (yet)
+    public static void main (String[] args) { 
+       //Put all your code to test the random turtle walk here
+       //Then REMOVE THIS COMMENT. 
+     World w1=new World();
+     Turtle t1=new Turtle(320,480,w1);
+     t1.takeStep(-1);
+     t1.takeStep(1);  
+      
+      
+      World w2=new World();
+      Turtle t2=new Turtle(320,480,w2);
+      System.out.println(t2.rwPosition(100));
+      
+      
+      World w3=new World();
+      Turtle t3=new Turtle(320,480,w3);
+      System.out.println(t3.countSteps(5));
+      
+    } 
+}
+

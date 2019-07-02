@@ -1,0 +1,6 @@
+Xinyi He (cs8aware)
+Explanation:
+1.divide both sound1 and sound2 into n parts;
+2.scramble the n parts of both sound1 and sound2;
+3.combine pieces of sound together one by one
+(sound1(1),sound2(1),sound1(2),sound2(2)……sound1(n),sound2(n))

@@ -1,0 +1,17 @@
+/* Filename:ExtraCreditPSA3.java 
+* Created by: Shuaiqi Xia, cs8a3 and Tony Xia, cs8a4
+* Date: 
+*/ 
+
+public class ExtraCreditPSA3
+{
+    //The line below is magic, you don't have to understand it (yet)
+    public static void main (String[] args) 
+    { 
+      Picture original=new Picture(FileChooser.pickAFile());
+      Picture copy=new Picture(original);
+      original.explore();
+      copy.contrastEnhancement(50);
+      copy.explore();
+    } 
+}

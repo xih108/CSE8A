@@ -1,0 +1,26 @@
+public class Silde
+{
+  ///////////////////// fields //////////////////////////////////
+  public Picture pic;
+  public Sound sound;
+  ///////////////////// constructors //////////////////////////////////
+  public Slide()
+  {
+     this.pic = null;
+     this.sound = null;
+  }
+  
+  public Slide(Picture inPic, Sound inSound)
+  {
+  
+  
+  }
+  
+  
+  ///////////////////// methods //////////////////////////////////
+
+
+
+
+
+}

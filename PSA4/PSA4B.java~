@@ -1,0 +1,27 @@
+/* Filename: PSA4B.java 
+* Created by: Xinyi He (cs8aware) and Yiwen LI (cs8awals)
+* Date: Feb 5th 2017
+*/ 
+
+public class PSA4B {
+ public static void main(String [] args)
+ {
+   //Choose a picture file and show it
+   String sourceFile = FileChooser.pickAFile();
+   Picture sourcePicture = new Picture(sourceFile);
+   sourcePicture.show();
+   
+   //Copy Picture objects
+   Picture copy1 = new Picture(sourcePicture);
+   Picture copy2 = new Picture(sourcePicture);
+  
+   //Call flipVerticalRectangle and flipHorizontalRectangle on the copies
+   copy1.flipVerticalRectangle(10,200,100,100);
+   copy2.flipHorizontalRectangle(0,200,100,100);
+   
+   //Show both copies!
+   copy1.explore();
+   copy2.explore();
+ } 
+  
+}

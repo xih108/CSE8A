@@ -1,0 +1,65 @@
+/* Filename: ExtraCreditSimulation.java 
+* Created by: Xinyi He(cs8aware) and Kaixun Zhang(cs8awatp)
+* Date: Jan,24,2017
+* 1.I investigated The Monty Hall problem
+* 
+* 2.My investigation contains two parts:
+* First,investigate the average chance of winning a car by sticking to the initial choice
+* Second,investigate the average chance of winning a car by switching to the other door
+* 
+* Experiment:first,randomly put a car behind one of the three doors labeled 0,1,2
+* Then the player choose one of the three doors 
+* In 100000 trials,the player didn't change their choices,if they chose the car they would win.
+* In another 100000 trials,the player change their choices,
+*     if they first chose the car, after switching to the other door they would lose
+*     if they first chose the goat, after switching to the other door they would win
+* 
+* I use for,while loops and if statement in my code to perform the experiment.
+* 
+* 3.My results show that switching to the other door wins twice as often as staying.
+* So people should always switch their guesses.
+*/ 
+import java.util.Random;
+import java.text.DecimalFormat; 
+   
+
+public class ExtraCreditSimulation {
+  public static void main (String[] args) {
+    int numTrial=0;
+    int total1=0;
+    int total2=0;
+    int totalTrial=100000;
+    double winChance1,winChance2;//declare variables
+    DecimalFormat df= new DecimalFormat("######0.00");//Round results to 2 decimal places
+    
+    Random generator=new Random();//create a new object in class Random
+    
+    //stick to initial choice
+     while (numTrial<totalTrial)
+    { 
+      int car1=generator.nextInt(3);//randomly put a car behind one of the doors labeled 0,1,2
+      int x=generator.nextInt(3);//the player choose a door
+      if (x==car1)           //if the door he chose has a car behind it,he wins
+      {total1=total1+1;}    //the number of trails he wins in total
+      numTrial++;
+    }
+     winChance1=total1*1.0/numTrial; //the average chance of winning(stick to initial choice)
+     System.out.print("The chance of winning a car by sticking to initial choice is ");//print out the result
+     System.out.println(df.format(winChance1));
+  
+   
+     //switch to the other door
+     for(int i=0;i<totalTrial;i++)
+     { 
+       int car2=generator.nextInt(3);
+       int y=generator.nextInt(3);
+       if (y!=car2)      //if the door he initially chose has a car behind it,he loses after swithing to the other door
+       {total2=total2+1;}
+     }
+     winChance2=total2*1.0/numTrial;
+     System.out.print("The chance of winning a car by switching to the other door is ");
+     System.out.println(df.format(winChance2));
+    
+    
+   }
+}

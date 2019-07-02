@@ -1,0 +1,146 @@
+/* Filename: RandomTurtleTester.java 
+* Created by: Xinyi He (cs8aware) and Kaixun Zhang(cs8awatp)
+* Date: Jan.22.2017
+* 
+* Question A: Average final signed-displacement for a random walker after making 100 random steps
+
+* | probabilityLeft = 0.25 | probabilityLeft = 0.5 | probabilityLeft = 0.75 | 
+* | Displacement =  50082   | Displacement = -84    | Displacement = -50184  |
+* Average final signed-displacement: 50.08    | -0.08  |  -50.18
+*  Comment on the result:
+* When probabilityLeft=0.5,the absolte value of displacement and of the average final signed-displacement are the smallest.
+* When probabilityLeft=0.25 and 0.75,their absolute value of displacement and of the average final signed-displacement are almost the same.
+* 
+* Question B
+* 1) 100 random steps   (THIS ANSWER SHOULD BE THE SAME AS QUESTION A’S ANSWER)
+* | probabilityLeft = 0.25 | probabilityLeft = 0.5 | probabilityLeft = 0.75 | 
+* | Displacement =  50082  | Displacement = -84    | Displacement = -50184  |
+* Average final signed-displacement: 50.08  | -0.08 |   -50.18
+* 
+* 2) 10 random steps
+* | probabilityLeft = 0.25 | probabilityLeft = 0.5 | probabilityLeft = 0.75 | 
+* | Displacement = 5000    | Displacement = -38    | Displacement = -4964   |
+* Average final signed-displacement: 5.00 | -0.04 |  -4.96
+* 
+* 3) 1000 random steps
+* | probabilityLeft = 0.25 | probabilityLeft = 0.5 | probabilityLeft = 0.75 | 
+* | Displacement =  498490 | Displacement = 254    | Displacement = -498740  |
+* Average final signed-displacement: 498.49 |  0.25 | -498.74
+*  Comment on the result: …
+* 1.number of steps is the same: (1)when the probabilityLeft gets closer to 0.5,
+* its absolute displacement and absolute average displacement get smaller. 
+* (2)the absolute value of displacement and of the average final signed-displacement are almost the same when probabilityLeft = 0.25 and 0.75
+* 2.probabilityLeft is the same: when the number of steps gets bigger,
+* its absolute displacement and average squared displacement get bigger.
+* 
+
+* Question C: Average squared displacement for a random walker after making 100 random steps
+* 
+* | probabilityLeft = 0.25 | probabilityLeft = 0.5 | probabilityLeft = 0.75 | 
+* | Displacement = 49982   | Displacement = 106    | Displacement = -49986  |
+* Average squared displacement:  2570.18    | 101.89  |  2573.78
+*  Comment on the result:
+* 1. When probabilityLeft=0.5,the absolute value of displacement and the average squared displacement are the smallest.
+* 2. When probabilityLeft =0.25 and 0.75,the absolute displacement and the average squared displacement are almost the same.
+* 
+* Question D
+* 1) 100 random steps   
+* | probabilityLeft = 0.25 | probabilityLeft = 0.5 | probabilityLeft = 0.75 | 
+* | Displacement =  49982  | Displacement = 106    | Displacement = -49986  |
+* Average squared displacement: 2570.18 | 101.89 |  2573.78
+* 
+* 2) 10 random steps
+* | probabilityLeft = 0.25 | probabilityLeft = 0.5 | probabilityLeft = 0.75 | 
+* | Displacement = 5004    | Displacement = -100   | Displacement = -5010   |
+* Average squared signed-displacement: 32.37 | 9.98| 32.15
+* 
+* 3) 1000 random steps
+* | probabilityLeft = 0.25 | probabilityLeft = 0.5 | probabilityLeft = 0.75 | 
+* | Displacement = 500816  | Displacement = 1406   | Displacement = -500218 |
+* Average squared displacement: 251579.58    |  1051.24  | 250927.32
+*  Comment on the result: 
+* 1.number of steps is the same: (1)when the probabilityLeft gets closer to 0.5,
+* its absolute displacement and average squared displacement get smaller.
+* (2)the absolute displacement and the average squared displacement are almost the same when probabilityLeft = 0.25 and 0.75
+* 2.probabilityLeft is the same: when the number of steps gets bigger,
+* its absolute displacement and average squared displacement get bigger.
+* 
+* So, in total you would have done 24 experiments
+*/ 
+import java.text.DecimalFormat; 
+   
+public class RandomTurtleTester2 {
+    //The line below is magic, you don't have to understand it (yet)
+    public static void main (String[] args) 
+    { 
+     DecimalFormat df= new DecimalFormat("######0.00");//round the result to 2 decimal places
+  
+       
+     //Part 1 
+     World w1=new World();
+     Turtle t1=new Turtle(320,480,w1);
+     t1.takeStep(-1);
+     t1.takeStep(1); 
+       
+     //Part 2
+     World w2=new World();
+     Turtle t2=new Turtle(320,480,w2);
+     System.out.println("Final signed displacemen "+t2.rwPosition(6));
+     
+     //Part 3
+     World w3=new World();
+     Turtle t3=new Turtle(320,480,w3);
+     System.out.println("Maximum unsigned displacement "+t3.countSteps(5));
+      
+     //Part 4
+     World w = new World();
+     Turtle t = new Turtle(w);  
+     int numTrials = 0;
+     int totalDisplacement = 0;
+     int totalSquaredDisplacement=0; 
+     double average=0;
+     double sAverage=0;    
+     double prob=0.25;    //declare and initialize variables
+     
+     
+     //question A,B :final signed average displacement
+     for (int i=0;i<3;i++,prob=prob+0.25)//three different value of probabilityLeft:0.25 0.5 0.75
+     {
+        numTrials = 0;
+        totalDisplacement=0;
+        while ( numTrials < 1000 )   //while loop,1000 trials 
+        { 
+          int x=t.rwPositionPlain(100,prob); //x means the displacement of n random walk(n can be:100,10,1000)
+          totalDisplacement=totalDisplacement+x; //totalDisplacement means the sum of displacement after 1000 trials
+          numTrials=numTrials+1;
+        }
+        System.out.println("The displacement of "+prob +" is "+totalDisplacement);//print out displacement
+        average=totalDisplacement*1.0/numTrials;//final average displacement
+        System.out.println("The final average displacement of "+prob+" is "+df.format(average));//print out final average displacement
+     }
+     
+     System.out.println();//set a blank line
+     prob=0.25;
+     
+     
+     //question C,D :final signed average displacement
+     for (int j=0;j<3;j++,prob=prob+0.25)//three different value of probabilityLeft:0.25 0.5 0.75 
+     {
+        numTrials = 0;
+        totalDisplacement=0;
+        totalSquaredDisplacement=0;
+        while ( numTrials < 1000 )   //while loop,1000 trials 
+        { 
+          int y=t.rwPositionPlain(100,prob); //y means the displacement of n random walk(n can be:100,10,1000)
+          totalSquaredDisplacement=totalSquaredDisplacement+y*y;//calculate the sum of squared displacement after 1000 trials
+          totalDisplacement=totalDisplacement+y; //totalDisplacement means the sum of displacement after 1000 trials
+          numTrials=numTrials+1;
+        }
+        System.out.println("The displacement of "+prob +" is "+totalDisplacement);//print out displacement
+        sAverage=totalSquaredDisplacement*1.0/numTrials;//average squared displacement
+        System.out.println("The average squared displacement of "+prob+" is "+df.format(sAverage));//print out average squared displacement
+     }
+    }
+        
+}
+ 

@@ -1,0 +1,25 @@
+/* Filename: PSA4B.java 
+* Created by: Xinyi He (cs8aware)
+* Date: Feb 5th 2017
+*/ 
+
+import java.util.Random;
+public class ExtraCreditPSA4{
+  public static void main(String [] args)
+  {
+      Picture p1 = new Picture(FileChooser.pickAFile());// select a picture
+      Picture canvas1 = new Picture(300,300);// create a canvas with width 300 and height 300
+      canvas1.scramble(p1);// call the method scramble 
+      canvas1.explore();// show the canvas1
+      
+      Picture p2 = new Picture(FileChooser.pickAFile());// select a picture
+      Picture canvas2 = new Picture(600,600);// create a canvas with width 300 and height 300
+      canvas2.scramble(p2);// call the method scramble 
+      canvas2.explore();// show the canvas2
+      
+      Picture p3 = new Picture(FileChooser.pickAFile());// select a picture
+      Picture canvas3 = new Picture(900,900);// create a canvas with width 900 and height 900
+      canvas3.scramble(p3);// call the method scramble 
+      canvas3.explore();// show the canvas3
+  }  
+}

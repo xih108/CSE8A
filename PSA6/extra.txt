@@ -1,0 +1,8 @@
+Strategy:
+Embed:
+1.get the 2 most significant bits of the message2 to replace the 3rd and 4th bits of message1
+2.get the 4 most significant bits of the new message1 to replace the 4 least significant bits of context 
+Extract:
+3.get the four least significant bits of picWithMessage 
+4.get the first two bits of the four bits ,shift to 8 bits to extract message1
+5.get the 2 least significant bits of picWithMessage,shift to 8 bits to extract message2
